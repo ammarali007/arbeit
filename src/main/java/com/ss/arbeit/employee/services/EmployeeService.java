@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -39,5 +40,15 @@ public class EmployeeService {
         } else {
             throw new EmployeeNotFoundException("employee not found with id : "+id);
         }
+    }
+    public EmployeeDTO setSkills(Long id, EmployeeRequest request){
+        Optional<Employee> employee = repository.findById(id);
+
+        return null;
+    }
+    public List<EmployeeDTO> getSkills(Long id){
+
+        return null;
+
     }
 }
