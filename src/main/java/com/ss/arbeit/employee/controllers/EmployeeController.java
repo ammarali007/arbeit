@@ -23,4 +23,12 @@ public class EmployeeController {
     public EmployeeDTO getEmployee(@PathVariable("id") Long id){
         return employeeService.fetchEmployee(id);
     }
+    @PostMapping("/employees/skills/{id}")
+    public EmployeeDTO setSkills(@PathVariable("id") Long id, @RequestBody @Validated EmployeeRequest request){
+        return employeeService.setSkills(id, request);
+    }
+    @PostMapping("/employees/skills/{id}")
+    public EmployeeDTO setExperience(@PathVariable("id") Long id, @RequestBody @Validated EmployeeRequest request){
+        return employeeService.setSkills(id, request);
+    }
 }
