@@ -15,7 +15,7 @@ public class Customer {
     private String lastName;
     private LocalDate dob;
     private String phone;
-    private LocalDate createOn;
+    private LocalDate createdOn;
     private LocalDate modifiedOn;
     private String password;
     private String salt;

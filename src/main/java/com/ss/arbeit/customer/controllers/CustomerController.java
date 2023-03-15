@@ -13,11 +13,11 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("/customer")
+    @PostMapping("/customers")
     public CustomerDTO createCustomer(@RequestBody @Validated CustomerRequest request){
         return customerService.createCustomer(request);
     }
-    @GetMapping("customer/{id}")
+    @GetMapping("customers/{id}")
     public CustomerDTO getCustomer(@PathVariable("id") Long id){
         return customerService.fetchCustomer(id);
     }
