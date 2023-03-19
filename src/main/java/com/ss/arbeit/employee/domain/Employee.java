@@ -2,8 +2,10 @@ package com.ss.arbeit.employee.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +20,7 @@ public class Employee {
     private LocalDate modifiedOn;
     private String password;
     private String salt;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="employee_id")
+    private List<Skill> skills;
 }

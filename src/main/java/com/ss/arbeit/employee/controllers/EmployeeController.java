@@ -3,6 +3,7 @@ package com.ss.arbeit.employee.controllers;
 
 import com.ss.arbeit.employee.dtos.EmployeeDTO;
 import com.ss.arbeit.employee.dtos.EmployeeRequest;
+import com.ss.arbeit.employee.dtos.SkillDTO;
 import com.ss.arbeit.employee.dtos.SkillRequest;
 import com.ss.arbeit.employee.services.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class EmployeeController {
         return employeeService.fetchEmployee(id);
     }
     @PostMapping("/employees/{id}/skills")
-    public EmployeeDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request){
+    public SkillDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request){
         return employeeService.addSkill(id, request);
     }
 //    @PostMapping("/employees/skills/{id}")

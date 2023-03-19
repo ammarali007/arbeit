@@ -1,8 +1,10 @@
 package com.ss.arbeit.employee.services;
 
 import com.ss.arbeit.employee.domain.Employee;
+import com.ss.arbeit.employee.domain.Skill;
 import com.ss.arbeit.employee.dtos.EmployeeDTO;
 import com.ss.arbeit.employee.dtos.EmployeeRequest;
+import com.ss.arbeit.employee.dtos.SkillDTO;
 import com.ss.arbeit.employee.dtos.SkillRequest;
 import com.ss.arbeit.employee.exceptions.EmployeeNotFoundException;
 import com.ss.arbeit.employee.repositories.EmployeeRepository;
@@ -36,20 +38,34 @@ public class EmployeeService {
 
     public EmployeeDTO fetchEmployee(Long id) {
         Optional<Employee> employee = repository.findById(id);
-        if(employee.isPresent()){
-            return modelMapper.map(employee, EmployeeDTO.class);
-        } else {
+        if(employee.isEmpty()){
             throw new EmployeeNotFoundException("employee not found with id : "+id);
         }
-    }
-    public EmployeeDTO addSkill(Long id, SkillRequest request){
-        Optional<Employee> employee = repository.findById(id);
 
+        EmployeeDTO employeeDTO = modelMapper.map(employee, EmployeeDTO.class);
+
+
+        return employeeDTO;
+    }
+    public SkillDTO addSkill(Long id, SkillRequest request){
+        Optional<Employee> employeeOptional = repository.findById(id);
+        Skill skill = modelMapper.map(request, Skill.class);
+
+        if(employeeOptional.isEmpty()){
+            throw new EmployeeNotFoundException("employee not found with id : "+id);
+        }
+
+        Employee employee = employeeOptional.get();
+        Random random = new Random();
+        skill.setId(random.nextLong(1, 100000));
+        employee.getSkills().add(skill);
+        repository.save(employee);
+        return modelMapper.map(skill,SkillDTO.class);
+    }
+    public List<EmployeeDTO> addExperience(Long id){
         return null;
     }
-    public List<EmployeeDTO> getSkills(Long id){
-
+    public SkillDTO deleteSkill(Long id, SkillRequest request) {
         return null;
-
     }
 }
