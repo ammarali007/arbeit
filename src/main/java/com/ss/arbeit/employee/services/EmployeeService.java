@@ -3,6 +3,7 @@ package com.ss.arbeit.employee.services;
 import com.ss.arbeit.employee.domain.Employee;
 import com.ss.arbeit.employee.dtos.EmployeeDTO;
 import com.ss.arbeit.employee.dtos.EmployeeRequest;
+import com.ss.arbeit.employee.dtos.SkillRequest;
 import com.ss.arbeit.employee.exceptions.EmployeeNotFoundException;
 import com.ss.arbeit.employee.repositories.EmployeeRepository;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class EmployeeService {
             throw new EmployeeNotFoundException("employee not found with id : "+id);
         }
     }
-    public EmployeeDTO setSkills(Long id, EmployeeRequest request){
+    public EmployeeDTO addSkill(Long id, SkillRequest request){
         Optional<Employee> employee = repository.findById(id);
 
         return null;
