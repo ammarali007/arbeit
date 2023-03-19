@@ -1,10 +1,7 @@
 package com.ss.arbeit.employee.controllers;
 
 
-import com.ss.arbeit.employee.dtos.EmployeeDTO;
-import com.ss.arbeit.employee.dtos.EmployeeRequest;
-import com.ss.arbeit.employee.dtos.SkillDTO;
-import com.ss.arbeit.employee.dtos.SkillRequest;
+import com.ss.arbeit.employee.dtos.*;
 import com.ss.arbeit.employee.services.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,17 +21,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public EmployeeDTO getEmployee(@PathVariable("id") Long id){
+    public EmployeeDTO getEmployee(@PathVariable("id") Long id) {
         return employeeService.fetchEmployee(id);
     }
 
     @PostMapping("/employees/{id}/skills")
     @ResponseStatus(HttpStatus.CREATED)
-    public SkillDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request){
+    public SkillDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request) {
         return employeeService.addSkill(id, request);
     }
-//    @PostMapping("/employees/skills/{id}")
-//    public EmployeeDTO setExperience(@PathVariable("id") Long id, @RequestBody @Validated EmployeeRequest request){
-//        return employeeService.setSkills(id, request);
-//    }
+
+    @PostMapping("/employees/skills/{id}")
+    public ExperienceDTO addExperience(@PathVariable("id") Long id, @RequestBody @Validated ExperienceRequest request) {
+        return employeeService.addExperience(id, request);
+    }
 }

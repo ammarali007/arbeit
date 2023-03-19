@@ -2,10 +2,7 @@ package com.ss.arbeit.employee.services;
 
 import com.ss.arbeit.employee.domain.Employee;
 import com.ss.arbeit.employee.domain.Skill;
-import com.ss.arbeit.employee.dtos.EmployeeDTO;
-import com.ss.arbeit.employee.dtos.EmployeeRequest;
-import com.ss.arbeit.employee.dtos.SkillDTO;
-import com.ss.arbeit.employee.dtos.SkillRequest;
+import com.ss.arbeit.employee.dtos.*;
 import com.ss.arbeit.employee.exceptions.EmployeeNotFoundException;
 import com.ss.arbeit.employee.repositories.EmployeeRepository;
 import lombok.AllArgsConstructor;
@@ -59,7 +56,7 @@ public class EmployeeService {
         return modelMapper.map(skill, SkillDTO.class);
     }
 
-    public List<EmployeeDTO> addExperience(Long id) {
+    public ExperienceDTO addExperience(Long id, ExperienceRequest request) {
         return null;
     }
 
