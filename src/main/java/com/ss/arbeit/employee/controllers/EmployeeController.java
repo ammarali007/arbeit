@@ -27,17 +27,16 @@ public class EmployeeController {
         return employeeService.fetchEmployee(id);
     }
 
-
-    @DeleteMapping("/employees/{employeeId}/skills/{skillId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEmployee(@PathVariable("employeeId") Long id, @PathVariable("skillId") Long skillId) {
-        employeeService.deleteSkill(id, skillId);
-    }
-
     @PostMapping("/employees/{id}/skills")
     @ResponseStatus(HttpStatus.CREATED)
     public SkillDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request) {
         return employeeService.addSkill(id, request);
+    }
+
+    @DeleteMapping("/employees/{employeeId}/skills/{skillId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSkill(@PathVariable("employeeId") Long id, @PathVariable("skillId") Long skillId) {
+        employeeService.deleteSkill(id, skillId);
     }
 
     @PostMapping("/employees/{id}/experiences")
@@ -46,7 +45,13 @@ public class EmployeeController {
         return employeeService.addExperience(id, request);
     }
 
-    @ExceptionHandler({ EmployeeNotFoundException.class, })
+    @DeleteMapping("/employees/{employeeId}/experiences/{experienceId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteExperience(@PathVariable("employeeId") Long id, @PathVariable("experienceId") Long experienceId) {
+        employeeService.deleteExperience(id, experienceId);
+    }
+
+    @ExceptionHandler({EmployeeNotFoundException.class,})
     public ResponseEntity<ErrorDTO> handleException(EmployeeNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDTO(exception.getMessage()));

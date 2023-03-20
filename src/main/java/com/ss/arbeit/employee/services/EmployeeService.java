@@ -70,9 +70,14 @@ public class EmployeeService {
         return modelMapper.map(experience, ExperienceDTO.class);
     }
 
-    public ExperienceDTO deleteExperience(Long id, ExperienceRequest request) {
-
-        return null;
+    public void deleteExperience(Long employeeId, Long experienceId) {
+        Optional<Employee> employeeOptional = repository.findById(employeeId);
+        if (employeeOptional.isEmpty()) {
+            throw new EmployeeNotFoundException("employee not found with employeeId : " + employeeId);
+        }
+        Employee employee = employeeOptional.get();
+        employee.getExperiences().removeIf(experience -> Objects.equals(experience.getId(), experienceId));
+        repository.save(employee);
     }
 
     public void deleteSkill(Long employeeId, Long skillId) {
