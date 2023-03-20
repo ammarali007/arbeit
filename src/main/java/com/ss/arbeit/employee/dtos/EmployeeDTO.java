@@ -13,4 +13,5 @@ public class EmployeeDTO {
     private LocalDate dob;
     private String phone;
     private List<SkillDTO> skills;
+    private List<ExperienceDTO> experiences;
 }

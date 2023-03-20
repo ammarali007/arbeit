@@ -2,7 +2,6 @@ package com.ss.arbeit.employee.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +20,10 @@ public class Employee {
     private String password;
     private String salt;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name = "employee_id")
     private List<Skill> skills;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private List<Experience> experiences;
 }

@@ -31,7 +31,8 @@ public class EmployeeController {
         return employeeService.addSkill(id, request);
     }
 
-    @PostMapping("/employees/skills/{id}")
+    @PostMapping("/employees/{id}/experiences")
+    @ResponseStatus(HttpStatus.CREATED)
     public ExperienceDTO addExperience(@PathVariable("id") Long id, @RequestBody @Validated ExperienceRequest request) {
         return employeeService.addExperience(id, request);
     }

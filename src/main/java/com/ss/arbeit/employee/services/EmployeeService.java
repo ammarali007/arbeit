@@ -1,6 +1,7 @@
 package com.ss.arbeit.employee.services;
 
 import com.ss.arbeit.employee.domain.Employee;
+import com.ss.arbeit.employee.domain.Experience;
 import com.ss.arbeit.employee.domain.Skill;
 import com.ss.arbeit.employee.dtos.*;
 import com.ss.arbeit.employee.exceptions.EmployeeNotFoundException;
@@ -9,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -22,12 +22,8 @@ public class EmployeeService {
 
     public EmployeeDTO createEmployee(EmployeeRequest request) {
         Employee employee = modelMapper.map(request, Employee.class);
-        //send email
-        //send sms
-        //send cnic to nadra
-        // send data for address varification
         Random random = new Random();
-        employee.setId(random.nextLong(1, 100000));
+        employee.setId(random.nextLong(1, 10));
         repository.save(employee);
 
         return modelMapper.map(employee, EmployeeDTO.class);
@@ -50,21 +46,45 @@ public class EmployeeService {
 
         Employee employee = employeeOptional.get();
         Random random = new Random();
-        skill.setId(random.nextLong(1, 100000));
+        skill.setId(random.nextLong(1, 10));
         employee.getSkills().add(skill);
         repository.save(employee);
         return modelMapper.map(skill, SkillDTO.class);
     }
-
     public ExperienceDTO addExperience(Long id, ExperienceRequest request) {
-        return null;
+        Optional<Employee> employeeOptional = repository.findById(id);
+        Experience experience = modelMapper.map(request, Experience.class);
+
+        if (employeeOptional.isEmpty()) {
+            throw new EmployeeNotFoundException("employee not found with id : " + id);
+        }
+
+        Employee employee = employeeOptional.get();
+
+        Random random = new Random();
+        experience.setId(random.nextLong(1, 10));
+
+        employee.getExperiences().add(experience);
+        repository.save(employee);
+        return modelMapper.map(experience, ExperienceDTO.class);
     }
 
-    public List<EmployeeDTO> deleteExperience(Long id) {
+    public ExperienceDTO deleteExperience(Long id, ExperienceRequest request) {
+
         return null;
     }
 
     public SkillDTO deleteSkill(Long id, SkillRequest request) {
+        Optional<Employee> employeeOptional = repository.findById(id);
+        if (employeeOptional.isEmpty()) {
+            throw new EmployeeNotFoundException("employee not found with id : " + id);
+        }
+
+        Employee employee = employeeOptional.get();
+
+        employee.getSkills().remove(request.getName());
+
+        repository.save(employee);
         return null;
     }
 }
