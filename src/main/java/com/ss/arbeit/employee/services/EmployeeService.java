@@ -32,16 +32,27 @@ public class EmployeeService {
 
     public EmployeeDTO fetchEmployee(Long id) {
         Optional<Employee> employee = repository.findById(id);
-        if(employee.isEmpty()){
-            throw new EmployeeNotFoundException("employee not found with id : "+id);
+        if (employee.isEmpty()) {
+            throw new EmployeeNotFoundException("employee not found with id : " + id);
         }
         return modelMapper.map(employee, EmployeeDTO.class);
     }
-    public SkillDTO addSkill(Long id, SkillRequest request){
+
+    public EmployeeDTO deleteEmployee(Long id) {
+        Optional<Employee> employeeOptional = repository.findById(id);
+        if (employeeOptional.isEmpty()) {
+            throw new EmployeeNotFoundException("employee not found with id : " + id);
+        }
+        Employee employee = employeeOptional.get();
+        repository.deleteById(employee.getId());
+        return modelMapper.map(employee, EmployeeDTO.class);
+    }
+
+    public SkillDTO addSkill(Long id, SkillRequest request) {
         Optional<Employee> employeeOptional = repository.findById(id);
         Skill skill = modelMapper.map(request, Skill.class);
 
-        if(employeeOptional.isEmpty()){
+        if (employeeOptional.isEmpty()) {
             throw new EmployeeNotFoundException("employee not found with id : " + id);
         }
 

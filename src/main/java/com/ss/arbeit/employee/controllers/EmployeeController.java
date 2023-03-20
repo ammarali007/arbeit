@@ -27,6 +27,11 @@ public class EmployeeController {
         return employeeService.fetchEmployee(id);
     }
 
+    @DeleteMapping("/employees/delete/{id}")
+    public EmployeeDTO deleteEmployee(@PathVariable("id") Long id) {
+        return employeeService.deleteEmployee(id);
+    }
+
     @PostMapping("/employees/{id}/skills")
     @ResponseStatus(HttpStatus.CREATED)
     public SkillDTO addSkill(@PathVariable("id") Long id, @RequestBody @Validated SkillRequest request) {
