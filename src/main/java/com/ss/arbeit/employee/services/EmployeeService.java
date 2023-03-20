@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -74,17 +75,13 @@ public class EmployeeService {
         return null;
     }
 
-    public SkillDTO deleteSkill(Long id, SkillRequest request) {
-        Optional<Employee> employeeOptional = repository.findById(id);
+    public void deleteSkill(Long employeeId, Long skillId) {
+        Optional<Employee> employeeOptional = repository.findById(employeeId);
         if (employeeOptional.isEmpty()) {
-            throw new EmployeeNotFoundException("employee not found with id : " + id);
+            throw new EmployeeNotFoundException("employee not found with employeeId : " + employeeId);
         }
-
         Employee employee = employeeOptional.get();
-
-        employee.getSkills().remove(request.getName());
-
+        employee.getSkills().removeIf(skill -> Objects.equals(skill.getId(), skillId));
         repository.save(employee);
-        return null;
     }
 }
