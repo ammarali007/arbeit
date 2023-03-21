@@ -1,7 +1,6 @@
 FROM maven:3.9.0
 
-WORKDIR /arbeit
-COPY . .
-RUN mvn clean install
+ADD target/arbeit-0.0.1-SNAPSHOT.jar application.jar
 
-CMD mvn spring-boot:run
+ENTRYPOINT ["java", "-jar","application.jar"]
+EXPOSE 8080
