@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +24,7 @@ public class JobService {
 
         return modelMapper.map(job, JobDTO.class);
     }
+
 
     public JobDTO fetchCustomer(Long id) {
         Optional<Job> job = repository.findById(id);
