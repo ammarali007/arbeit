@@ -1,5 +1,8 @@
-package com.ss.arbeit.customer.controllers;
+package com.ss.arbeit.Job.controllers;
 
+import com.ss.arbeit.Job.dtos.JobDTO;
+import com.ss.arbeit.Job.dtos.JobRequest;
+import com.ss.arbeit.Job.services.JobService;
 import com.ss.arbeit.customer.dtos.CustomerDTO;
 import com.ss.arbeit.customer.dtos.CustomerRequest;
 import com.ss.arbeit.customer.services.CustomerService;
@@ -13,21 +16,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-public class CustomerController {
+public class JobController {
 
-    private final CustomerService customerService;
+    private final JobService jobService;
 
-    @PostMapping("/customers")
+    @PostMapping("/jobs")
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerDTO createCustomer(@RequestBody @Validated CustomerRequest request) {
-        return customerService.createCustomer(request);
+    public JobDTO createCustomer(@RequestBody @Validated JobRequest request) {
+        return jobService.createJob(request);
     }
 
-    @GetMapping("customers/{id}")
-    public CustomerDTO getCustomer(@PathVariable("id") Long id) {
-        return customerService.fetchCustomer(id);
+    @GetMapping("jobs/{id}")
+    public JobDTO getCustomer(@PathVariable("id") Long id) {
+        return jobService.fetchCustomer(id);
     }
-
 
     @ExceptionHandler({EmployeeNotFoundException.class,})
     public ResponseEntity<ErrorDTO> handleException(EmployeeNotFoundException exception) {

@@ -1,7 +1,7 @@
 create table if not exists experience
 (
     id
-    int
+    serial
     primary
     key,
     company_name

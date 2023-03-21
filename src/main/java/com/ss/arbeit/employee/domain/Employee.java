@@ -10,6 +10,8 @@ import java.util.List;
 @Data
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Long id;
     private String firstName;
     private String lastName;

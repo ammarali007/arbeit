@@ -23,8 +23,6 @@ public class EmployeeService {
 
     public EmployeeDTO createEmployee(EmployeeRequest request) {
         Employee employee = modelMapper.map(request, Employee.class);
-        Random random = new Random();
-        employee.setId(random.nextLong(1, 10));
         repository.save(employee);
 
         return modelMapper.map(employee, EmployeeDTO.class);
@@ -58,8 +56,7 @@ public class EmployeeService {
         }
 
         Employee employee = employeeOptional.get();
-        Random random = new Random();
-        skill.setId(random.nextLong(1, 10));
+
         employee.getSkills().add(skill);
         repository.save(employee);
         return modelMapper.map(skill, SkillDTO.class);
@@ -73,9 +70,6 @@ public class EmployeeService {
         }
 
         Employee employee = employeeOptional.get();
-
-        Random random = new Random();
-        experience.setId(random.nextLong(1, 10));
 
         employee.getExperiences().add(experience);
         repository.save(employee);

@@ -1,13 +1,14 @@
 package com.ss.arbeit.customer.services;
 
 import com.ss.arbeit.customer.domain.Customer;
+import com.ss.arbeit.Job.domain.Job;
 import com.ss.arbeit.customer.dtos.CustomerDTO;
 import com.ss.arbeit.customer.dtos.CustomerRequest;
+import com.ss.arbeit.Job.dtos.JobDTO;
+import com.ss.arbeit.Job.dtos.JobRequest;
 import com.ss.arbeit.customer.exceptions.CustomerNotFoundException;
 import com.ss.arbeit.customer.repositories.CustomerRepository;
-import com.ss.arbeit.employee.domain.Employee;
-import com.ss.arbeit.employee.dtos.EmployeeDTO;
-import com.ss.arbeit.employee.dtos.EmployeeRequest;
+import com.ss.arbeit.employee.exceptions.EmployeeNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,6 @@ public class CustomerService {
     public CustomerDTO createCustomer(CustomerRequest request){
         Customer customer = modelMapper.map(request, Customer.class);
 
-        Random random = new Random();
-        customer.setId(random.nextLong(1, 100000));
         repository.save(customer);
 
         return modelMapper.map(customer, CustomerDTO.class);
